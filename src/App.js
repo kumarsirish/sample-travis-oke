@@ -8,15 +8,15 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          ReactJS project with Oracle Kubernetes Engine, Continuous Integration Server Travis and GitHub
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://dzone.com/content/2944068"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Dzone Article Link
         </a>
       </header>
     </div>
