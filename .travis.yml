@@ -4,11 +4,11 @@ services:
    - docker
 
 before_install:
-   - docker build --build-arg NPM_REGISTRY=${NPM_REGISTRY} --build-arg COMPARTMENT_ID=$C -t ${OCI_URL}/sample-travis-oke  .
+   - docker build --build-arg NPM_REGISTRY=${NPM_REGISTRY} --build-arg COMPARTMENT_ID=$C -t ${OCIR_URL}/sample-travis-oke  .
    - docker login phx.ocir.io -p ${OCIR_PASSWORD} -u ${OCIR_USER}
-   - docker push ${OCI_URL}/sample-travis-oke:latest
+   - docker push ${OCIR_URL}/sample-travis-oke:latest
 
 script:
-  - docker run -e CI=true  ${OCI_URL}/sample-travis-oke:latest npm run test
+  - docker run -e CI=true  ${OCIR_URL}/sample-travis-oke:latest npm run test
 
 deploy:
