@@ -36,5 +36,5 @@ RUN cp -rf /app/.kube/ /root/.kube/ && \
     cp -rf /app/.oci/ /root/.oci
 
 EXPOSE 5000
-ENTRYPOINT ["/bin/serve"]
+ENTRYPOINT ["/bin/bash"]
 CMD []
