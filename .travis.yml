@@ -3,13 +3,9 @@ sudo: required
 services:
 - docker
 before_install:
-- pwd
-- ls -la
-- ls -la .oci/
-- openssl aes-256-cbc -K $encrypted_95b07039fa60_key -iv $encrypted_95b07039fa60_iv
-  -in .oci/oci_api_key.pem.enc -out .oci/oci_api_key.pem -d
-- openssl aes-256-cbc -K $encrypted_361635032fbb_key -iv $encrypted_361635032fbb_iv
-  -in .kube/config.enc -out .kube/config -d
+- openssl aes-256-cbc -K $encrypted_d64597df0b07_key -iv $encrypted_d64597df0b07_iv
+  -in secrets.tar.enc -out secrets.tar -d
+- tar xvf secrets.tar
 - docker build --build-arg NPM_REGISTRY=${NPM_REGISTRY} --build-arg COMPARTMENT_ID=$C
   -t ${OCIR_URL}/sample-travis-oke:latest  .
 - docker login phx.ocir.io -p ${OCIR_PASSWORD} -u ${OCIR_USER}
