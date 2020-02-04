@@ -6,7 +6,7 @@ WORKDIR '/app'
 
 COPY package.json .
 COPY ol7_developer_nodejs8.repo /etc/yum.repos.d/
-RUN echo proxy=${HTTP_PROXY} >>/etc/yum.conf
+#RUN echo proxy=${HTTP_PROXY} >>/etc/yum.conf
 
 RUN yum -y update && \
     rm -rf /var/cache/yum && \
