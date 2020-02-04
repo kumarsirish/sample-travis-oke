@@ -6,16 +6,16 @@ WORKDIR '/app'
 
 COPY package.json .
 COPY ol7_developer_nodejs8.repo /etc/yum.repos.d/
-#RUN echo proxy=${HTTP_PROXY} >>/etc/yum.conf
+RUN echo proxy=${HTTP_PROXY} >>/etc/yum.conf
 
 RUN yum -y update && \
     rm -rf /var/cache/yum && \
     yum -y install nodejs 
 
 RUN  yum -y install python3 
-
 RUN npm config set registry ${NPM_REGISTRY}
 RUN npm install
+RUN npm install -g serve
 COPY . .
 RUN npm run build
 
@@ -24,7 +24,7 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.16.0/b
         && rm -rf /tmp/*
 
 ENV PATH="/app:/bin:/root/bin:${PATH}"
-ENV KUBECONFIG="/root/.kube/oci_config"
+ENV KUBECONFIG="/root/.kube/config"
 ENV LC_ALL="en_US.utf8"
 ENV C ${COMPARTMENT_ID}
 
@@ -32,7 +32,9 @@ RUN curl -LO https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/ins
         && chmod +x ./install.sh  \
         && ./install.sh --accept-all-defaults
 
+RUN cp -rf /app/.kube/ /root/.kube/ && \
+    cp -rf /app/.oci/ /root/.oci
 
-FROM nginx
-EXPOSE 80
-COPY --from=builder /app/build  /usr/share/nginx/html
+EXPOSE 5000
+ENTRYPOINT ["/bin/serve"]
+CMD []

@@ -10,6 +10,10 @@
 
 # production
 /build
+.oci/config
+.oci/oci_api_key.pem
+.kube/config
+
 
 # misc
 .DS_Store

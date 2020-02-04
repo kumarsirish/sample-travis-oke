@@ -1,14 +1,18 @@
 language: generic
 sudo: required
 services:
-   - docker
-
+- docker
 before_install:
-   - docker build --build-arg NPM_REGISTRY=${NPM_REGISTRY} --build-arg COMPARTMENT_ID=$C -t ${OCIR_URL}/sample-travis-oke:latest  .
-   - docker login phx.ocir.io -p ${OCIR_PASSWORD} -u ${OCIR_USER}
-   - docker push ${OCIR_URL}/sample-travis-oke:latest
-
+- openssl aes-256-cbc -K $encrypted_361635032fbb_key -iv $encrypted_361635032fbb_iv
+  -in .kube/config.enc -out .kube/config -d
+- openssl aes-256-cbc -K $encrypted_d64597df0b07_key -iv $encrypted_d64597df0b07_iv
+  -in .oci/oci_api_key.pem.enc -out .oci/oci_api_key.pem -d
+- openssl aes-256-cbc -K $encrypted_d64597df0b07_key -iv $encrypted_d64597df0b07_iv
+  -in .oci/config.enc -out .oci/config -d
+- docker build --build-arg NPM_REGISTRY=${NPM_REGISTRY} --build-arg COMPARTMENT_ID=$C
+  -t ${OCIR_URL}/sample-travis-oke:latest  .
+- docker login phx.ocir.io -p ${OCIR_PASSWORD} -u ${OCIR_USER}
+- docker push ${OCIR_URL}/sample-travis-oke:latest
 script:
-  - docker run -e CI=true  ${OCIR_URL}/sample-travis-oke:latest npm run test
-
-deploy:
+- kubectl cluster-info
+deploy: 
