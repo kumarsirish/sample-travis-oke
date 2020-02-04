@@ -3,9 +3,6 @@ sudo: required
 services:
 - docker
 before_install:
-- openssl aes-256-cbc -K $encrypted_d64597df0b07_key -iv $encrypted_d64597df0b07_iv
-  -in secrets.tar.enc -out secrets.tar -d
-- tar xvf secrets.tar
 - docker build --build-arg NPM_REGISTRY=${NPM_REGISTRY} --build-arg COMPARTMENT_ID=$C
   -t ${OCIR_URL}/sample-travis-oke:travis .
 - docker login phx.ocir.io -p ${OCIR_PASSWORD} -u ${OCIR_USER}
