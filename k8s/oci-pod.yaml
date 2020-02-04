@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   name: app-oci-oke-pod
+   labels:
+      component: web
+spec:
+   containers:
+      - name: app-oci-oke
+        image: [OCIR]orion/sample-travis-oke:travis
+        command: ["-c /bin/serve -s build"]
+        ports:
+        - containerPort: 5000
