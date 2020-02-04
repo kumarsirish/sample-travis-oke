@@ -3,6 +3,9 @@ sudo: required
 services:
 - docker
 before_install:
+- pwd
+- ls -la
+- ls -la .oci/
 - openssl aes-256-cbc -K $encrypted_95b07039fa60_key -iv $encrypted_95b07039fa60_iv
   -in .oci/oci_api_key.pem.enc -out .oci/oci_api_key.pem -d
 - openssl aes-256-cbc -K $encrypted_361635032fbb_key -iv $encrypted_361635032fbb_iv
