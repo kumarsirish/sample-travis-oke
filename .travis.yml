@@ -7,7 +7,7 @@ before_install:
   -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
 - docker build --build-arg NPM_REGISTRY=${NPM_REGISTRY} --build-arg COMPARTMENT_ID=$C
-  -t ${OCIR_URL}/sample-travis-oke:latest  .
+  -t ${OCIR_URL}/sample-travis-oke:latest /apps
 - docker login phx.ocir.io -p ${OCIR_PASSWORD} -u ${OCIR_USER}
 - docker push ${OCIR_URL}/sample-travis-oke:latest
 script:
